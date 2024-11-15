@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tracking Dashboard</title>
+
+    <!-- External font for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling with Flexbox */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Styling the container */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content styling */
+        .content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        /* Styling the link */
+        .btn-link {
+            color: #007bff;
+            font-size: 18px;
+            margin: 10px;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .btn-link:hover {
+            color: #0056b3;
+        }
+
+        /* Styling the button */
+        .btn-success {
+            color: white;
+            background-color: #28a745;
+            border-radius: 8px;
+            padding: 12px 20px;
+            border: none;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        /* Footer to keep the Home button at the bottom */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        /* Styling the text */
+        p {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Adding a container for all sections */
+        .page-sections {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            justify-items: center;
+        }
+
+        /* Media queries for responsiveness */
+        @media (min-width: 768px) {
+            .page-sections {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main page sections -->
+    <div class="page-sections">
+        <div class="container">
+            <div class="content">
+                <p>For holistic tracking of your health, check out the dashboard below:</p>
+                <a href="{% url 'dashboard' %}" class="btn-link" target="_blank">Go to Dashboard</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="content">
+                <p>To predict diseases and get a more detailed report, check out the home:</p>
+                <a href="{% url 'home' %}" class="btn-link" target="_blank">Go to Home</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="content">
+                <p>Get data on the best hospitals and doctors and countires for treatment:</p>
+                <a href="{% url 'find_hospitals' %}" class="btn-link" target="_blank">Find Hospitals</a>
+                <a href="{% url 'find_doctors' %}" class="btn-link" target="_blank">Find Doctors</a>
+                <a href="{% url 'best_countries' %}" class="btn-link" target="_blank">Find countries</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="content">
+                <p>To book appointments:</p>
+                <a href="{% url 'appointments' %}" class="btn-link" target="_blank">Book appointments</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer with Home Button at the bottom -->
+    <footer>
+        <a href="{% url 'home' %}" class="btn-success">Home Window</a>
+    </footer>
+
+</body>
+</html>

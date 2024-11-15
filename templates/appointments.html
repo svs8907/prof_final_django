@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointments</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f2f2f2; /* Light gray background */
+            font-family: Arial, sans-serif;
+            color: #333333; /* Dark text */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff; /* White background for the content */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            max-width: 600px;
+            text-align: center;
+        }
+        .content p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .btn-link, .btn-back {
+            display: inline-block;
+            background-color: #007bff; /* Bootstrap blue */
+            color: #ffffff; /* White text */
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-link:hover, .btn-back:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            color: #f2f2f2;
+        }
+        .btn-back {
+            background-color: #6c757d; /* Gray background for back button */
+        }
+        .btn-back:hover {
+            background-color: #5a6268; /* Darker gray on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="content">
+            <p>To book your appointments with doctors, click the button below:</p>
+            <a href="https://appointmentguru.onrender.com/" class="btn-link" target="_blank">Go to appointments</a>
+            <a href="{% url 'home' %}" class="btn-back">Back to Home</a> <!-- Back button -->
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

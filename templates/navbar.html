@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Example</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgb(144, 202, 249); /* Blue background color */
+            color: #ffffff; /* White text color */
+        }
+        .logo img {
+            max-width: 100%;
+            height: auto;
+        }
+        .navbar {
+            background-color: rgb(27, 51, 75); /* Blue background color */
+            margin-bottom: 80px;
+        }
+        /* Ensure all links in the navbar remain white */
+        .navbar .nav-link,
+        .navbar .navbar-brand {
+            color: #ffffff !important; /* Force white color */
+        }
+        .navbar .nav-link:hover,
+        .navbar .navbar-brand:hover {
+            color: #ccccff !important; /* Light blue on hover */
+        }
+
+        /* Styles for the Services dropdown */
+        .navbar .dropdown-menu {
+            background-color: rgb(27, 51, 75); /* Dark blue background for dropdown */
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            border-radius: 10px; /* Smooth rounded corners */
+        }
+        .navbar .dropdown-item {
+            color: #ffffff !important; /* White text */
+            padding: 10px 20px; /* Increased padding for better spacing */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+        }
+        .navbar .dropdown-item:hover {
+            background-color: #ccccff; /* Light blue background on hover */
+            color: #000000 !important; /* Black text on hover */
+        }
+
+        /* Added styles for login button */
+        .login-btn {
+            background-color: #4CAF50; /* Green background color */
+            color: #ffffff; /* White text color */
+            border: none;
+            margin-left: 20px;
+            padding-left: 30px;
+            padding-right: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .login-btn:hover {
+            background-color: #3e8e41; /* Darker green background color on hover */
+        }
+        /* Added styles for sign up button */
+        .signup-btn {
+            background-color: #ff9800; /* Orange background color */
+            color: #ffffff; /* White text color */
+            border: none;
+            margin-left: 20px;
+            padding-left: 30px;
+            padding-right: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .signup-btn:hover {
+            background-color: #ff7f00; /* Darker orange background color on hover */
+        }
+        /* Logout Button */
+        .logout-btn {
+            background-color: #d9534f; /* Red background color */
+            color: #ffffff; /* White text color */
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .logout-btn:hover {
+            background-color: #c9302c; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <img src="{% static 'Images/medicarelogo4.png' %}" class="logo">
+        <a class="navbar-brand" href="#"></a>
+        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'features' %}">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'appointments' %}">Appointments</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        More
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'find_doctors' %}">Find Doctors</a>
+                        <a class="dropdown-item" href="{% url 'find_hospitals' %}">Find Hospitals</a>
+                        <a class="dropdown-item" href="{% url 'best_countries' %}">Best Countries for Treatment</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- Logout Button -->
+            <form method="POST" action="{% url 'logout' %}" class="ml-auto">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger logout-btn">Logout</button>
+            </form>
+        </div>
+    </nav>    
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

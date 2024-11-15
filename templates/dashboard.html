@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Dashboard</title>
+    <style>
+        body {
+            background-color: #f0f4f8;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            overflow-y: auto; /* Allow scrolling if content exceeds */
+            min-height: 90vh;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-info img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid #76c7c0;
+        }
+
+        .profile-info h2 {
+            font-size: 1.5em;
+            color: #333;
+            margin: 0;
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+            color: #777;
+        }
+
+        .welcome-msg {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            color: white;
+            background-color: green;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            background-color: darkgreen;
+        }
+
+        .health-checks {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .health-checks label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .progress-container {
+            margin: 30px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar div {
+            height: 20px;
+            background-color: #76c7c0;
+            width: 50%; /* This will be dynamically changed */
+        }
+
+        .reset-btn {
+            background-color: red;
+            border-radius: 10px;
+            padding: 10px 20px;
+            color: white;
+            font-size: 1em;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .reset-btn:hover {
+            background-color: darkred;
+        }
+
+        .feature-icons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .feature-icons div {
+            text-align: center;
+        }
+
+        .feature-icons img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .feature-title {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .chart-container {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .home-btn {
+            background-color: #007bff;
+            border-radius: 10px;
+            padding: 10px 20px;
+            color: white;
+            font-size: 1em;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .home-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Profile Information Section -->
+        <div class="profile-info">
+            <img src="https://img.icons8.com/ios-filled/100/000000/user.png" alt="Profile Picture">
+            <div>
+                <h2>{{ request.user.username }}</h2>
+                <p>Bio: Health enthusiast</p>
+            </div>
+        </div>
+
+        <h1 class="welcome-msg">Check out your progress, {{ request.user.username }}!</h1>
+
+        
+
+        <div class="health-checks">
+            <h2>Today's Health Activities</h2>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="drink_water" name="drink_water">
+                    Drank Water (8 glasses)
+                </label>
+                <label>
+                    <input type="checkbox" id="exercise" name="exercise">
+                    Exercised
+                </label>
+                <label>
+                    <input type="checkbox" id="slept_well" name="slept_well">
+                    Slept Well (7+ hours)
+                </label>
+                <label>
+                    <input type="checkbox" id="meditated" name="meditated">
+                    Meditated
+                </label>
+                <label>
+                    <input type="checkbox" id="healthy_meals" name="healthy_meals">
+                    Ate Healthy Meals
+                </label>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Daily Water Intake</span>
+                    <span>4/8 glasses</span>
+                </div>
+                <div class="progress-bar">
+                    <div style="width: 50%;"></div>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Daily Exercise</span>
+                    <span>30/60 minutes</span>
+                </div>
+                <div class="progress-bar">
+                    <div style="width: 50%;"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Chart container -->
+        <div class="chart-container">
+            <canvas id="activityChart"></canvas>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <a href="{% url 'home' %}" class="home-btn">Home</a>
+        <button type="submit" class="btn" onclick="trackProgress()">Submit</button>
+        <button class="reset-btn" onclick="resetChart()">Reset</button>
+    </div>
+
+    <!-- Load Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Data arrays to track activities over time
+        const times = [];
+        const waterData = [];
+        const exerciseData = [];
+        const sleepData = [];
+        const meditateData = [];
+        const mealsData = [];
+
+        // Function to track checkbox input and update arrays
+        function trackProgress() {
+            const drankWater = document.getElementById('drink_water').checked;
+            const exercised = document.getElementById('exercise').checked;
+            const sleptWell = document.getElementById('slept_well').checked;
+            const meditated = document.getElementById('meditated').checked;
+            const ateHealthyMeals = document.getElementById('healthy_meals').checked;
+
+            const currentTime = new Date().toLocaleTimeString(); // Get the current time
+
+            // Push the current time and status of checkboxes into the arrays
+            times.push(currentTime);
+            waterData.push(drankWater ? 1 : 0);
+            exerciseData.push(exercised ? 1 : 0);
+            sleepData.push(sleptWell ? 1 : 0);
+            meditateData.push(meditated ? 1 : 0);
+            mealsData.push(ateHealthyMeals ? 1 : 0);
+
+            // Update the chart with new data
+            updateChart();
+        }
+
+        // Chart.js code to create and manage the chart
+        const ctx = document.getElementById('activityChart').getContext('2d');
+        const activityChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: times, // X-axis: time of submission
+                datasets: [
+                    {
+                        label: 'Water Intake',
+                        data: waterData,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Exercise',
+                        data: exerciseData,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Sleep Quality',
+                        data: sleepData,
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Meditation',
+                        data: meditateData,
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Healthy Meals',
+                        data: mealsData,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            boxWidth: 20,
+                            padding: 15,
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.dataset.label + ': ' + (tooltipItem.raw === 1 ? 'Done' : 'Not Done');
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)',
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Status',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            max: 1,
+                            stepSize: 1,
+                            callback: function(value) {
+                                return value === 1 ? 'Done' : 'Not Done';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)',
+                        }
+                    }
+                }
+            }
+        });
+
+        // Function to update the chart when new data is submitted
+        function updateChart() {
+            activityChart.update();
+        }
+
+        // Function to reset the chart and checkbox values
+        function resetChart() {
+            // Clear data arrays
+            times.length = 0;
+            waterData.length = 0;
+            exerciseData.length = 0;
+            sleepData.length = 0;
+            meditateData.length = 0;
+            mealsData.length = 0;
+
+            // Clear checkboxes
+            document.getElementById('drink_water').checked = false;
+            document.getElementById('exercise').checked = false;
+            document.getElementById('slept_well').checked = false;
+            document.getElementById('meditated').checked = false;
+            document.getElementById('healthy_meals').checked = false;
+
+            // Update chart
+            updateChart();
+        }
+    </script>
+
+</body>
+</html>

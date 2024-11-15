@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #000000;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .medication-link {
+            color: #000000; /* Same color as result text */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.3s ease;
+        }
+        .medication-link:hover {
+            color: #0000EE; /* Change color on hover */
+        }
+        
+        .link-container {
+            margin-top: 20px;
+        }
+        .link-container a {
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+        .link-container a:first-child {
+            margin-bottom: 20px;
+        }
+        .link-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .link-container button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        .btn-link {
+            font-size: 16px;
+            color: #007bff;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .btn-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Predicted Disease: {{ result }}</h1>
+    <h1> 
+        <span>
+            {% for precaution in precautions %}
+                <a class="medication-link"
+                   href="https://www.google.com/search?q={{ precautions|urlencode }}"
+                   target="_blank"
+                   title="Click to find {{ precautions }} on Google Shopping">
+                   [{{ precautions }}]
+                </a>
+                {% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </span>
+    </h1>
+    <div class="link-container">
+        <a href="{% url 'home' %}"><button type="button" class="btn btn-success">Home Window</button></a>
+        <!-- Use a dynamic link to pass the disease name as a query parameter to rep.html -->
+        <a href="{% url 'rep' %}?disease={{ result }}" class="btn-link" target="_blank">Know more about the disease</a>
+    </div>
+</body>
+</html>
+{% endblock %}
